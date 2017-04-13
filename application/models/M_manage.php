@@ -105,4 +105,14 @@ class M_manage extends CI_Model {
 			return FALSE;
 		}*/
 	}
+
+	public function add_publication_info($pub_info)
+	{
+		//TODO//
+		$sql = "INSERT INTO `publication_info`(`article_title`, `article_link`, `year`, `date`, `image_link`, `people`, `publisher`) VALUES ('".$pub_info['article_title']."','".$pub_info['article_link']."','".$pub_info['year']."','".$pub_info['date']."','".$pub_info['image_link']."','".$pub_info['people']."','".$pub_info['publisher']."')";
+		$this->db->query($sql);
+		$sql = "SELECT `publication_id` FROM `publication_info` WHERE `article_title`='".$pub_info['article_title']."'";
+		$query = $this->db->query($sql);
+		return $query->result()[0]->pid;
+	}
 }

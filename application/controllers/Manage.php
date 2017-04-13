@@ -121,4 +121,33 @@ class Manage extends CI_Controller {
 		redirect(site_url('/'), 'refresh');*/
 	}
 
+	public function add_publication()
+	{
+		$article_title = $this->input->post('article_title');
+		$article_link = $this->input->post('article_link');
+		$year = $this->input->post('year');
+		$date = $this->input->post('date');
+		$image_link = $this->input->post("image_link");
+		$people = $this->input->post("people");
+		$publisher = $this->input->post("publisher");
+		
+		$pub_info = array('article_title' => $article_title,
+						   'article_link' => $article_link,
+						   'year' => $year,
+						   'date' => $date,
+						   'image_link' => $image_link,
+						   'people' => $people,
+						   'publisher' => $publisher);
+		$id="!";
+		$id = $this->m_manage->add_publication_info($pub_info);
+		if($id!="!")
+		{
+			echo $id;
+		}
+		else
+		{
+			echo "error";
+		}
+	}
+
 }

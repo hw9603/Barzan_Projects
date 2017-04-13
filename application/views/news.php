@@ -62,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <a href="/home">List of Projects</a>
             </li>
             <li>
-              <a href="">List of Publications</a>
+              <a href="/publication">List of Publications</a>
             </li>
             <li class="divider">
             </li>

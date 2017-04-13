@@ -77,7 +77,7 @@
                 <li class="dropdown"> 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="caret"></b></a> 
                     <ul class="dropdown-menu">
-                        <li><a href="http://web.eecs.umich.edu/~mozafari/">Home</a></li><li><a href="projects.php">List of Projects</a></li><li><a href="publications.php">List of Publications</a></li><li class="divider"></li><li><a href="https://web.eecs.umich.edu/~mozafari/php/login.php" style="font-weight: 300;">Login</a></li>                  </ul> 
+                        <li><a href="http://web.eecs.umich.edu/~mozafari/">Home</a></li><li><a href="/home">List of Projects</a></li><li><a href="/publication">List of Publications</a></li><li class="divider"></li><li><a href="/manage" style="font-weight: 300;">Login</a></li>                  </ul> 
                 </li>
             </ul>
         </div>

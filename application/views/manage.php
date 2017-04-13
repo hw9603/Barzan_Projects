@@ -155,6 +155,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						alert("people length over limit");
 						return;
 					}
+
+					/*var publication = "<br><ul>";
+					for (i = 1 ; i <= 5 ; i++)
+					{
+						var article_link = $("#a_link"+i).val();
+						var article_title = $("#a_title"+i).val();
+						var year = $("#year"+i).val();
+						var date = $("#date"+i).val();
+						var publisher = $("#publisher"+i).val();
+						var image = $("#a_img"+i).val();
+						var people = $("#a_people"+i).val();
+						if (article_link == '' || article_title == '' || year == '' || date == '' || publisher == '' || image == '' || people == ''){
+							alert("Please fill out all the blanks under publication tab!");
+							return;
+						}
+						publication += "<li>" + people + ". <a href=\"" + article_link + "\">" + article_title + "</a>. <i>" + publisher + "</i>, " + date + ", " + year + "<br/><br/></li>";
+					}
+					publication += "</ul>";*/
 					
 					var abstract = editor.html();
 					var publication = editor2.html();
@@ -318,6 +336,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				});
 
 			});
+			
+			function clr(){
+				$("#a_title").val('');
+				$("#a_link").val('');
+				$("#year").val('');
+				$("#date").val('');
+				$("#a_img").val('');
+				$("#a_people").val('');
+				$("#publisher").val('');
+			}
+
+			function add(){
+				var article_title = $("#a_title").val();
+				var article_link = $("#a_link").val();
+				var year = $("#year").val();
+				var date = $("#date").val();
+				var image_link = $("#a_img").val();
+				var people = $("#a_people").val();
+				var publisher = $("#publisher").val();
+				if (article_title == '' || article_link == '' || year == '' || date == '' || image_link == '' || people == '' || publisher == ''){
+					alert("Please complete all the information of the publication!");
+					return;
+				}
+				$.ajax
+			    ({
+					type: 'POST',
+					url: '/manage/add_publication',
+					data: 
+					{
+						article_title : article_link,
+						article_link : article_link,
+						year : year,
+						date, date,
+						image_link : image_link,
+						people : people,
+						publisher : publisher
+					},
+					success: function(data)
+					{
+						alert("New tuple added in publication!");
+					},
+					error: function()
+					{
+						alert('FAIL due to unknown error');
+					},
+					dataType: 'text'
+				});
+			}
 
 			function newsDelete(id){
 				$.ajax
@@ -454,7 +520,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         	<a href="/home">List of Projects</a>
                         </li>
                         <li>
-                        	<a href="">List of Publications</a>
+                        	<a href="/publication">List of Publications</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -519,10 +585,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <label for="past">Current Project/Past Project :</label>
   <div class="row-sm-12">
 	  <div class="col-lg-6">
-	  	<input type="radio" class="form-control" id="past" name="past" value=0>Current Project<br>
+	  	<input type="radio" class="form-control" id="past" name="past" value=0>Current Project<br/>
 	  </div>
 	  <div class="col-lg-6">
-	  	<input type="radio" class="form-control" id="past" name="past" value=1>Past Project<br>
+	  	<input type="radio" class="form-control" id="past" name="past" value=1>Past Project<br/>
 	  </div>
   </div>
 </div>
@@ -628,6 +694,70 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</h3>
 	  </div>
   </div>
+
+	<div class="row">
+		<div class="col-sm-12" align="center">
+			<h2>Add Publication</h2>
+		</div>
+	</div>
+
+	<div class="form-group col-lg-6">
+	  <label for="a_title">Article Title:</label>
+	  <input type="text" class="form-control" id="a_title" placeholder="e.g. Statistical Analysis of Latency Through Semantic Profiling">
+	</div>
+
+
+	<div class="form-group col-lg-6">
+	  <label for="a_link">Reference:</label>
+	  <input type="text" class="form-control" id="a_link" placeholder="e.g. http://web.eecs.umich.edu/~mozafari/php/data/uploads/eurosys_2017.pdf">
+	</div>
+
+
+	<div class="form-group col-lg-3">
+	  <label for="year">Year:</label>
+	  <input type="text" class="form-control" id="year" placeholder="2017">
+	</div>
+
+
+	<div class="form-group col-lg-3">
+	  <label for="date">Date:</label>
+	  <input type="text" class="form-control" id="date" placeholder="e.g. May 14-19">
+	</div>
+
+	<div class="form-group col-lg-6">
+	  <label for="publisher">Journal:</label>
+	  <input type="text" class="form-control" id="publisher" placeholder="e.g. In Proceedings of Proceedings of the European Conference on Computer Systems (EuroSys)">
+	</div>
+
+	<div class="form-group col-lg-6">
+	  <label for="a_img">Image:</label>
+	  <input type="text" class="form-control" id="a_img" placeholder="e.g. http://web.eecs.umich.edu/~mozafari/php/data/pics/genericPaperImage.png">
+	</div>
+
+	<div class="form-group col-lg-6">
+	  <label for="a_people">People:</label>
+	  <input type="text" class="form-control" id="a_people" placeholder="e.g. Jiamin Huang, Barzan Mozafari, Thomas F. Wenisch">
+	</div>
+		
+	<div class="row">
+	  <div class="col-sm-5"></div>
+	  <div class="col-sm-1">
+	  	<h3>
+	  		<button class="btn btn-primary" onclick="add()" id="add"> Add
+	  		<span class="glyphicon glyphicon-plus"></span>
+	  		</button>
+		</h3>
+	  </div>
+	  <div class="col-sm-1">
+	  	<h3>
+	  		<button class="btn btn-danger" onclick="clr()" id="clr"> Clear
+	  		<span class="glyphicon glyphicon-remove"></span>
+	  		</button>
+		</h3>
+	  </div>
+	  <div class="col-sm-5"></div>
+    </div>
+
 
 
   <div class="row">
